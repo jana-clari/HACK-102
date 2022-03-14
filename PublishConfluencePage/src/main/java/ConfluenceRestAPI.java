@@ -24,36 +24,60 @@ public class ConfluenceRestAPI {
     //aGFyc2hhbGNoZXBleUBnbWFpbC5jb206MEh2WkxNMFJiRnljaEp4cnh2REFBQ0Qy
     //private static final String BASE_URL = "http://localhost:1990/confluence";
     private static final String BASE_URL = "https://documentaggregator.atlassian.net/wiki";
-    private static final String USERNAME = "harshalchepey@gmail.com";
-    private static final String PASSWORD = "Confluence@clari";
+    //private static final String USERNAME = "harshalchepey@gmail.com";
+    //private static final String PASSWORD = "Confluence@clari";
     private static final String ENCODING = "utf-8";
+    private String wikiPageTitle;
+    private String wikiPage;
+    private static final String wikiSpace ="Confluence";
+    private String labelToAdd;
+    private static final int parentPageId = 9994250;
 
-    public static String createContentRestUrl()throws UnsupportedEncodingException
+
+    private String createContentRestUrl()throws UnsupportedEncodingException
     {
         return String.format("%s/rest/api/content/", BASE_URL);//?&os_authType=basic&os_username=%s&os_password=%s", BASE_URL, URLEncoder.encode(USERNAME, ENCODING), URLEncoder.encode(PASSWORD, ENCODING));
-
     }
 
-    public static void main(final String[] args) throws Exception
-    {
-        String wikiPageTitle = "My Awesome Page";
-        String wikiPage = "<h1>Things That Are Awesome</h1><ul><li>Birds</li><li>Mammals</li><li>Decapods</li></ul>";
-        String wikiSpace = "Confluence";
-        String labelToAdd = "awesome_stuff";
-        int parentPageId = 9994250;
+//    public static void main(final String[] args) throws Exception
+//    {
+//        String wikiPageTitle = "My Awesome Page";
+//        String wikiPage = "<h1>Things That Are Awesome</h1><ul><li>Birds</li><li>Mammals</li><li>Decapods</li></ul>";
+//        String wikiSpace = "Confluence";
+//        String labelToAdd = "awesome_stuff";
+//        JSONObject newPage = defineConfluencePage(wikiPageTitle,
+//                wikiPage,
+//                wikiSpace,
+//                labelToAdd,
+//                parentPageId);
+//
+//        createConfluencePageViaPost(newPage);
+//
+//    }
 
-
-        JSONObject newPage = defineConfluencePage(wikiPageTitle,
-                wikiPage,
-                wikiSpace,
-                labelToAdd,
-                parentPageId);
-
-        createConfluencePageViaPost(newPage);
-
+    public void setPageAtrributes(String pageTitle, String pageBody){
+        this.wikiPage = pageBody;
+        this.wikiPageTitle = pageTitle;
+        this.labelToAdd = pageTitle;
     }
 
-    public static void createConfluencePageViaPost(JSONObject newPage) throws Exception
+    public void publishConfluencePage() {
+        JSONObject newPage = null;
+        try {
+            newPage = defineConfluencePage(wikiPageTitle,
+                    wikiPage,
+                    wikiSpace,
+                    labelToAdd,
+                    parentPageId);
+            createConfluencePageViaPost(newPage);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createConfluencePageViaPost(JSONObject newPage) throws Exception
     {
         HttpClient client = new DefaultHttpClient();
 
@@ -82,7 +106,7 @@ public class ConfluenceRestAPI {
         }
     }
 
-    public static JSONObject defineConfluencePage(String pageTitle,
+    private JSONObject defineConfluencePage(String pageTitle,
                                                   String wikiEntryText,
                                                   String pageSpace,
                                                   String label,
