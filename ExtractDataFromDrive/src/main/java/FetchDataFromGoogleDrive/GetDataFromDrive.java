@@ -22,6 +22,7 @@ public class GetDataFromDrive {
             for (File file : files) {
                 if (file.getMimeType().contains("document")) {
                     System.out.printf("%s (%s)\n", file.getName(), file.getId());
+                    System.out.printf("%s (%s)\n", file.getCreatedTime(),file.getVersion());
                     count = count + 1;
                 }
             }

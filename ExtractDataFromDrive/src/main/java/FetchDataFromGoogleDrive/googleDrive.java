@@ -36,7 +36,7 @@ public class googleDrive {
 
         FileList result = service.files().list()
                 .setPageSize(1000)
-                .setFields("nextPageToken, files(id, name, mimeType)")
+                .setFields("nextPageToken, files(id, name, mimeType,createdTime,fileExtension,exportLinks,driveId,description,version)")
                 .execute();
         return result;
     }
