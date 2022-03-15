@@ -58,14 +58,16 @@ dependencies {
     implementation group: 'com.google.apis', name: 'google-api-services-gmail', version: 'v1-rev110-1.25.0'
     testImplementation group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.2.1'
     testImplementation group: 'com.amazonaws', name: 'aws-java-sdk-cloudtrail', version: '1.11.63'
-// https://mvnrepository.com/artifact/com.google.oauth-client/google-oauth-client-jetty
+    // https://mvnrepository.com/artifact/com.google.oauth-client/google-oauth-client-jetty
     implementation 'com.google.oauth-client:google-oauth-client-jetty:1.33.1'
     implementation 'com.google.http-client:google-http-client-gson:1.19.0'
-//    testImplementation 'com.google.apis:google-api-services-drive:v3-rev20211107-1.32.1'
+    //    testImplementation 'com.google.apis:google-api-services-drive:v3-rev20211107-1.32.1'
     // https://mvnrepository.com/artifact/com.google.apis/google-api-services-drive
     implementation 'com.google.apis:google-api-services-drive:v3-rev197-1.25.0'
     // https://mvnrepository.com/artifact/com.google.apis/google-api-services-docs
     implementation 'com.google.apis:google-api-services-docs:v1-rev61-1.25.0'
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.3'
 
 
 
