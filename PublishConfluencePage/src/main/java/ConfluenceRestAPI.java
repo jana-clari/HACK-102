@@ -17,6 +17,8 @@ import java.net.URLEncoder;
 /**
  * Creates a Confluence wiki page via the RESTul API
  * using an HTTP Post command.
+ * Supplying Basic Auth Setting :
+ * https://developer.atlassian.com/cloud/confluence/basic-auth-for-rest-apis/
  */
 public class ConfluenceRestAPI {
 
