@@ -3,6 +3,7 @@ package extractor;
 import FetchDataFromGoogleDrive.GetDataFromDrive;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FileFetcher implements Runnable
 {
@@ -16,9 +17,10 @@ public class FileFetcher implements Runnable
     @Override
     public void run()
     {
-        List<GFile> fileList = GetDataFromDrive.getAllFiles();
+        List<GFile> preList = postgresConnector.getAllFiles();
+        List<GFile> fileList = GetDataFromDrive.getAllFiles(preList.stream().map(GFile::getId).collect(Collectors.toList()));
         System.out.println("Files fetched full ==> \n\n "+fileList.size()+"\n\n\n");
-        fileList.removeAll(postgresConnector.getAllFiles());
+        fileList.removeAll(preList);
         System.out.println("Files newly fetched ==> \n\n "+fileList.size()+"\n\n\n");
         if(!fileList.isEmpty()){
             postgresConnector.upsertFiles(fileList);

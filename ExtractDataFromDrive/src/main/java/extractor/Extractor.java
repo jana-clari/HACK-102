@@ -16,6 +16,7 @@ public class Extractor
         PostgresConnector postgresConnector = new PostgresConnector();
         postgresConnector.createTable();
         FileFetcher fileFetcher = new FileFetcher(postgresConnector);
+//        fileFetcher.run();
         scheduler.scheduleAtFixedRate(fileFetcher, 0, 15, TimeUnit.SECONDS);
     }
 }

@@ -26,7 +26,7 @@ public class PostgresConnector
 
     void createTable() throws SQLException
     {
-        c.createStatement().execute("CREATE TABLE IF NOT EXISTS FILES (ID VARCHAR PRIMARY KEY, VERSION INT NOT NULL)");
+        c.createStatement().execute("CREATE TABLE IF NOT EXISTS FILES (ID VARCHAR PRIMARY KEY, VERSION INT NOT NULL, STATUS VARCHAR NOT NULL)");
     }
     
     List<GFile> getAllFiles()
@@ -43,7 +43,7 @@ public class PostgresConnector
     {
         List<GFile> result = new ArrayList<>();
         while(resultSet.next()){
-            result.add(new GFile(resultSet.getString("ID"), resultSet.getInt("VERSION")));
+            result.add(new GFile(resultSet.getString("ID"), resultSet.getInt("VERSION"), FileStatus.valueOf(resultSet.getString("STATUS"))));
         }
         return result;
     }
@@ -53,7 +53,7 @@ public class PostgresConnector
         try {
             Statement statement = c.createStatement();
             for (GFile file : files) {
-                String sql = "INSERT INTO FILES VALUES ('" + file.getId() + "', " + file.getVersion() + ") ON CONFLICT (ID) DO UPDATE SET VERSION = " + file.getVersion();
+                String sql = "INSERT INTO FILES VALUES ('" + file.getId() + "', " + file.getVersion() + ", '"+FileStatus.CREATED.name()+"') ON CONFLICT (ID) DO UPDATE SET VERSION = " + file.getVersion() +", STATUS = '"+FileStatus.MODIFIED.name()+"'";
                 statement.addBatch(sql);
             }
             return statement.executeBatch();

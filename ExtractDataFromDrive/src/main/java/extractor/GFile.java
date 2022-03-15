@@ -1,16 +1,18 @@
 package extractor;
 
-import java.util.Comparator;
 
 public class GFile
 {
+    
     private final String id;
     private final long version;
+    private final FileStatus status;
     
-    public GFile(String id, long version)
+    public GFile(String id, long version, FileStatus status)
     {
         this.id = id;
         this.version = version;
+        this.status = status;
     }
 
     @Override
@@ -41,4 +43,11 @@ public class GFile
         }
         return false;
     }
+
+    public FileStatus getStatus()
+    {
+        return status;
+    }
 }
+
+

@@ -1,6 +1,7 @@
 package FetchDataFromGoogleDrive;
 
 import com.google.api.services.drive.model.File;
+import extractor.FileStatus;
 import extractor.GFile;
 
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class GetDataFromDrive {
         getStringDataFromGoogleDoc("1AxrgxrHBFukzV7bdD-OTi5HEtmovUga4YBVCo0UkiDg");
     }
 
-    public static List<GFile> getAllFiles()
+    public static List<GFile> getAllFiles(List<String> preList)
     {
         try {
             List<GFile> gFiles = new ArrayList<>();
@@ -46,7 +47,7 @@ public class GetDataFromDrive {
             else {
                 for (File file : files) {
                     if (file.getMimeType().contains("document")) {
-                        gFiles.add(new GFile(file.getId(), file.getVersion()));
+                        gFiles.add(new GFile(file.getId(), file.getVersion(), preList.contains(file.getId()) ? FileStatus.MODIFIED : FileStatus.CREATED));
 //                        System.out.printf("%s (%s)\n", file.getName(), file.getId());
 //                        System.out.printf("%s (%s)\n", file.getCreatedTime(), file.getVersion());
                         count = count + 1;
