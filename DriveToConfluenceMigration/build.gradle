@@ -1,0 +1,83 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+        resources {
+            exclude('envBuilder')
+        }
+    }
+}
+
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.testng:testng:6.8.8'
+    testImplementation 'com.jayway.restassured:rest-assured:2.6.0'
+    implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+    testImplementation "org.codehaus.groovy:groovy:3.0.7"
+    testImplementation platform("org.spockframework:spock-bom:2.0-M4-groovy-3.0")
+    testImplementation "org.spockframework:spock-core"
+    testImplementation "org.spockframework:spock-junit4"  // you can remove this if your code does not rely on old JUnit 4 rules
+
+    testImplementation 'com.microsoft.graph:microsoft-graph:5.4.0'
+    testImplementation 'com.azure:azure-identity:1.0.4'
+    testImplementation 'com.google.api-client:google-api-client:1.23.0'
+    testImplementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+    testImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.13.0'
+    testImplementation group: 'org.mongodb', name: 'mongo-java-driver', version: '3.12.7'
+    testImplementation group: 'org.mongodb', name: 'mongodb-driver-core', version: '4.1.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+//    // https://mvnrepository.com/artifact/com.google.apis/google-api-services-drive
+//    testImplementation group: 'com.google.apis', name: 'google-api-services-drive', version: 'v3-rev197-1.25.0'
+
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.testng:testng:6.8.8'
+    testImplementation 'com.jayway.restassured:rest-assured:2.6.0'
+    // https://mvnrepository.com/artifact/com.sun.mail/javax.mail
+
+    implementation group: 'com.google.apis', name: 'google-api-services-gmail', version: 'v1-rev110-1.25.0'
+    testImplementation group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.2.1'
+    testImplementation group: 'com.amazonaws', name: 'aws-java-sdk-cloudtrail', version: '1.11.63'
+    // https://mvnrepository.com/artifact/com.google.oauth-client/google-oauth-client-jetty
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.33.1'
+    implementation 'com.google.http-client:google-http-client-gson:1.19.0'
+    //    testImplementation 'com.google.apis:google-api-services-drive:v3-rev20211107-1.32.1'
+    // https://mvnrepository.com/artifact/com.google.apis/google-api-services-drive
+    implementation 'com.google.apis:google-api-services-drive:v3-rev197-1.25.0'
+    // https://mvnrepository.com/artifact/com.google.apis/google-api-services-docs
+    implementation 'com.google.apis:google-api-services-docs:v1-rev61-1.25.0'
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'org.json:json:20090211'
+
+
+
+}
+
+test {
+    useTestNG()
+}
