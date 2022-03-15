@@ -43,21 +43,21 @@ public class ConfluenceRestAPI {
         return String.format("%s/rest/api/content/", BASE_URL);//?&os_authType=basic&os_username=%s&os_password=%s", BASE_URL, URLEncoder.encode(USERNAME, ENCODING), URLEncoder.encode(PASSWORD, ENCODING));
     }
 
-    public static void main(final String[] args) throws Exception
-    {
-//        String wikiPageTitle = "Test: My Awesome Page";
-//        String wikiPage = "This is a test !@#$$^&:{}[]';/.,'"; //*<>()?
-//        String wikiSpace = "Confluence";
-//        String labelToAdd = "awesome_stuff";
-//        JSONObject newPage = defineConfluencePage(wikiPageTitle,
-//                wikiPage,
-//                wikiSpace,
-//                labelToAdd,
-//                parentPageId);
+//    public static void main(final String[] args) throws Exception
+//    {
+////        String wikiPageTitle = "Test: My Awesome Page";
+////        String wikiPage = "This is a test !@#$$^&:{}[]';/.,'"; //*<>()?
+////        String wikiSpace = "Confluence";
+////        String labelToAdd = "awesome_stuff";
+////        JSONObject newPage = defineConfluencePage(wikiPageTitle,
+////                wikiPage,
+////                wikiSpace,
+////                labelToAdd,
+////                parentPageId);
+////
+////        createConfluencePageViaPost(newPage);
 //
-//        createConfluencePageViaPost(newPage);
-
-    }
+//    }
 
     public void setPageAtrributes(String pageTitle, String pageBody){
         this.wikiPage = pageBody;
@@ -81,7 +81,7 @@ public class ConfluenceRestAPI {
         }
     }
 
-    private static void createConfluencePageViaPost(JSONObject newPage) throws Exception
+    private void createConfluencePageViaPost(JSONObject newPage) throws Exception
     {
         HttpClient client = new DefaultHttpClient();
 
@@ -110,7 +110,7 @@ public class ConfluenceRestAPI {
         }
     }
 
-    private static JSONObject defineConfluencePage(String pageTitle,
+    private JSONObject defineConfluencePage(String pageTitle,
                                                    String wikiEntryText,
                                                    String pageSpace,
                                                    String label,
