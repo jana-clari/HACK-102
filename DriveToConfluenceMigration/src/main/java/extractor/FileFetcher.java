@@ -1,6 +1,7 @@
 package extractor;
 
 import FetchDataFromGoogleDrive.GetDataFromDrive;
+import UploadDataIntoConfluence.DecisionEngine;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +25,7 @@ public class FileFetcher implements Runnable
         System.out.println("Files newly fetched ==> \n\n "+fileList.size()+"\n\n\n");
         if(!fileList.isEmpty()){
             postgresConnector.upsertFiles(fileList);
-            //TODO trigger Hasshals code
+            DecisionEngine.CreateOrUpdate(fileList);
         }
         System.out.println("=========================");
     }

@@ -1,20 +1,43 @@
 package UploadDataIntoConfluence;
 
+import FetchDataFromGoogleDrive.googleDrive;
+import com.google.api.services.docs.v1.model.Document;
+import extractor.FileStatus;
+import extractor.GFile;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DecisionEngine {
-    public static void CreateOrUpdate(ArrayList<String> Ids) {
-        for (int i = 0; i < (long) Ids.size(); i++) {
-            // for update, call update
-            //else call create
+    public static void CreateOrUpdate(List<GFile> Files){
+        try {
+            for (int i = 0; i < (long) Files.size(); i++) {
+                // for update, call update
+                //else call create
+                GFile file = Files.get(i);
+                Document doc = googleDrive.getStringDataFromGoogleDoc(file.getId());
+                if (file.getStatus() == FileStatus.CREATED) {
+                    Create(doc.getTitle(), doc.getBody().toPrettyString());
+                } else {
+                    Update(doc.getDocumentId(), doc.getTitle(), doc.getBody().toPrettyString());
+                }
+
+            }
+        }catch (Exception ex)
+        {
+            throw new RuntimeException(ex);
         }
     }
 
-    private void Create(String pageTitle, String pageBody) {
-
+    private static void Create(String pageTitle, String pageBody) {
+        ConfluenceRestAPI confluenceRestAPI = new ConfluenceRestAPI();
+        confluenceRestAPI.setPageAtrributes(pageTitle, pageBody);
+        confluenceRestAPI.publishConfluencePage();
     }
 
-    private void Update(String Id, String pageTitle, String pageBody){
+    private static void Update(String Id, String pageTitle, String pageBody){
 
     }
 }
