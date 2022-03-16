@@ -15,8 +15,6 @@ public class DecisionEngine {
     public static void CreateOrUpdate(List<GFile> Files){
         try {
             for (int i = 0; i < (long) Files.size(); i++) {
-                // for update, call update
-                //else call create
                 GFile file = Files.get(i);
                 Document doc = googleDrive.getStringDataFromGoogleDoc(file.getId());
                 if (file.getStatus() == FileStatus.CREATED) {
