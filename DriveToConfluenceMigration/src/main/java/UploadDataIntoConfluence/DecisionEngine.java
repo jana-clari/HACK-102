@@ -5,6 +5,7 @@ import FetchDataFromGoogleDrive.googleDrive;
 import com.google.api.services.docs.v1.model.Document;
 import extractor.FileStatus;
 import extractor.GFile;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -36,8 +37,10 @@ public class DecisionEngine {
         confluenceRestAPI.publishConfluencePage();
     }
 
-    private static void Update(String Id, String pageTitle, String pageBody){
-
+    private static void Update(String Id, String pageTitle, String pageBody) throws JSONException, IOException {
+        UpdateConfluenceRestAPI confluenceRestAPI = new UpdateConfluenceRestAPI();
+        confluenceRestAPI.setPageAtrributes(pageTitle, pageBody);
+        confluenceRestAPI.updateConfluencePage(Long.parseLong(Id), pageBody);
     }
 }
 
