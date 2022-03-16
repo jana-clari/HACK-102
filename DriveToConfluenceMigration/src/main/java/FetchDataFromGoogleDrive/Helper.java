@@ -1,6 +1,7 @@
 package FetchDataFromGoogleDrive;
 
 import com.google.api.services.docs.v1.model.*;
+import org.jsoup.Jsoup;
 
 import java.util.List;
 
@@ -37,4 +38,11 @@ public class Helper {
         }
         return sb.toString();
     }
+
+    public static String htmlToXhtml(String html) {
+        final org.jsoup.nodes.Document document = Jsoup.parse(html);
+        document.outputSettings().syntax(org.jsoup.nodes.Document.OutputSettings.Syntax.xml);
+        return document.html();
+    }
+
 }

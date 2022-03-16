@@ -7,7 +7,9 @@ import com.google.api.services.docs.v1.model.Document;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.FileList;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.security.GeneralSecurityException;
 
 import static FetchDataFromGoogleDrive.Authentication.JSON_FACTORY;
@@ -27,6 +29,21 @@ public class googleDrive {
         System.out.println(doc.getTitle());
         System.out.println(Helper.readStructuralElements(doc.getBody().getContent()));
         return doc;
+    }
+
+    public static OutputStream getContentAsHTML(String fieldId) throws IOException, GeneralSecurityException {
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+
+        OutputStream outputStream = new ByteArrayOutputStream();
+        service.files().export(fieldId,"text/html")
+                .executeMediaAndDownloadTo(outputStream);
+        System.out.println("This is the outStream:"+outputStream);
+        return outputStream;
+
+
     }
 
     public static FileList getAllFilesInDrive() throws IOException, GeneralSecurityException {
