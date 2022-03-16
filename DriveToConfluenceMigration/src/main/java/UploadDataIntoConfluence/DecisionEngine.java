@@ -1,5 +1,6 @@
 package UploadDataIntoConfluence;
 
+import FetchDataFromGoogleDrive.Helper;
 import FetchDataFromGoogleDrive.googleDrive;
 import com.google.api.services.docs.v1.model.Document;
 import extractor.FileStatus;
@@ -19,9 +20,9 @@ public class DecisionEngine {
                 GFile file = Files.get(i);
                 Document doc = googleDrive.getStringDataFromGoogleDoc(file.getId());
                 if (file.getStatus() == FileStatus.CREATED) {
-                    Create(doc.getTitle(), doc.getBody().toPrettyString());
+                    Create(doc.getTitle(), Helper.htmlToXhtml(googleDrive.getContentAsHTML(file.getId()).toString()));
                 } else {
-                    Update(doc.getDocumentId(), doc.getTitle(), doc.getBody().toPrettyString());
+                    Update(doc.getDocumentId(), doc.getTitle(), Helper.htmlToXhtml(googleDrive.getContentAsHTML(file.getId()).toString()));
                 }
 
             }
