@@ -13,6 +13,7 @@ import java.util.List;
 import static FetchDataFromGoogleDrive.googleDrive.getAllFilesInDrive;
 import static FetchDataFromGoogleDrive.googleDrive.getStringDataFromGoogleDoc;
 import com.google.api.services.docs.v1.model.Document;
+import org.jsoup.Jsoup;
 
 public class GetDataFromDrive {
 
@@ -36,8 +37,8 @@ public class GetDataFromDrive {
 
         Document doc=getStringDataFromGoogleDoc("1AxrgxrHBFukzV7bdD-OTi5HEtmovUga4YBVCo0UkiDg");
         ConfluenceRestAPI confluenceRestAPI=new ConfluenceRestAPI();
-        String str = Helper.readStructuralElements(doc.getBody().getContent()).replaceAll("[^a-zA-Z0-9]", " ");
-        confluenceRestAPI.setPageAtrributes(doc.getTitle(),str);
+        String str= Helper.htmlToXhtml(googleDrive.getContentAsHTML("1AxrgxrHBFukzV7bdD-OTi5HEtmovUga4YBVCo0UkiDg").toString());
+        confluenceRestAPI.setPageAtrributes(doc.getTitle()+"TEST1",str);
         confluenceRestAPI.publishConfluencePage();
     }
 
